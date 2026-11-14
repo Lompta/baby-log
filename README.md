@@ -2,6 +2,8 @@
 
 A small, private, shared log for a new baby's feedings and diapers. Built to live as a home-screen app on a few phones (parents, grandparents, a nanny) that all see the same data.
 
+(Vibe coded and also vibe documented, pretty much just a copy paste from a personal use system.)
+
 - **Nursing** with a left/right start-stop timer, plus an optional "how heavy it seemed" (light / medium / heavy)
 - **Bottles** in ounces, with milk type (breast milk / formula / hybrid) and a Vitamin D drops checkbox
 - **Diapers** (wet / dirty / both) on a separate tab
