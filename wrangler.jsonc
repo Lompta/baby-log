@@ -1,0 +1,36 @@
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "baby-log",
+  "compatibility_date": "2026-09-01",
+  // A private, shared baby feeding and diaper log. Cloudflare Access lets only
+  // the listed accounts in, and src/index.js re-checks the Access JWT on every
+  // request. Until the values below are filled in, every request gets a 404.
+  "main": "src/index.js",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    // Every request, assets included, goes through the JWT check first.
+    "run_worker_first": true
+  },
+  // No *.workers.dev or preview URLs: they would skip Access.
+  "workers_dev": false,
+  "preview_urls": false,
+  // CHANGE ME: the hostname you protected with Access, on a domain in your
+  // Cloudflare account. Wrangler creates the DNS record for a custom domain.
+  "routes": [{ "pattern": "baby.example.com", "custom_domain": true }],
+  "vars": {
+    // CHANGE ME: everyone who may use the app, comma-separated. Must match the
+    // Access app's policy.
+    "ALLOWED_EMAILS": "parent1@example.com,parent2@example.com",
+    // Optional display names for "Logged by ...": email:Name, comma-separated.
+    // Anyone not listed shows as the part of their email before the @.
+    "NAMES": "parent1@example.com:Parent 1,parent2@example.com:Parent 2",
+    // CHANGE ME: your Zero Trust team domain and the Access app's AUD tag.
+    "ACCESS_TEAM_DOMAIN": "your-team.cloudflareaccess.com",
+    "ACCESS_AUD": "paste-the-application-audience-aud-tag-here"
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "LOG", "class_name": "Log" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Log"] }]
+}

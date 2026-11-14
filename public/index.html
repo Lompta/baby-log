@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Baby Log</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f6f1e9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#14171c" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Baby Log">
+  <link rel="manifest" href="app.webmanifest" crossorigin="use-credentials">
+  <link rel="icon" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>baby log</h1>
+    <nav class="tabs">
+      <button data-tab="feeds">Feeds</button>
+      <button data-tab="diapers">Diapers</button>
+    </nav>
+    <a id="sync" class="sync" href="#"></a>
+  </header>
+
+  <main id="feeds" class="page">
+    <section class="since">
+      <div class="since-label">Last fed</div>
+      <div id="since-value" class="since-value">—</div>
+      <div id="since-detail" class="since-detail"></div>
+    </section>
+
+    <section id="nursing" class="nursing" hidden>
+      <div class="nursing-head">
+        <span>Nursing</span>
+        <span id="nurse-total" class="nurse-total"></span>
+      </div>
+      <div class="sides">
+        <button class="side" data-side="L">
+          <span class="side-name">Left</span>
+          <span class="side-time" id="time-L">0:00</span>
+          <span class="side-state" id="state-L"></span>
+        </button>
+        <button class="side" data-side="R">
+          <span class="side-name">Right</span>
+          <span class="side-time" id="time-R">0:00</span>
+          <span class="side-state" id="state-R"></span>
+        </button>
+      </div>
+      <div class="nursing-actions">
+        <button id="nurse-discard" class="link">Discard</button>
+        <button id="nurse-finish" class="primary">Done</button>
+      </div>
+    </section>
+
+    <section id="start" class="start">
+      <button class="big nurse" data-start="L"><span>Nurse</span><small>Left</small></button>
+      <button class="big nurse" data-start="R"><span>Nurse</span><small>Right</small></button>
+      <button class="big bottle" id="bottle-btn"><span>Bottle</span><small>oz</small></button>
+    </section>
+
+    <div class="viewbar">
+      <div class="seg" role="tablist">
+        <button data-view="day">Day</button>
+        <button data-view="week">Week</button>
+      </div>
+      <div class="datenav">
+        <button class="nav-btn" data-step="-1" aria-label="Earlier">‹</button>
+        <button class="date-label" data-today></button>
+        <button class="nav-btn" data-step="1" aria-label="Later">›</button>
+      </div>
+    </div>
+
+    <section id="day-view">
+      <div id="day-totals" class="totals"></div>
+      <div class="strip-wrap">
+        <div id="day-strip" class="strip tall"></div>
+        <div class="hours"><span>12a</span><span>6a</span><span>12p</span><span>6p</span><span>12a</span></div>
+      </div>
+      <ul id="day-list" class="list"></ul>
+      <button id="add-past" class="link add-past">+ Add an earlier nursing</button>
+    </section>
+
+    <section id="week-view" hidden>
+      <div id="week-rows" class="week-rows"></div>
+      <div class="hours week-hours"><span>12a</span><span>6a</span><span>12p</span><span>6p</span><span>12a</span></div>
+      <div id="week-avg" class="totals week-avg"></div>
+    </section>
+
+    <footer class="foot">
+      <button id="export" class="link quiet">Export CSV</button>
+    </footer>
+  </main>
+
+  <main id="diapers" class="page" hidden>
+    <section class="start three">
+      <button class="big diaper" data-diaper="wet"><span>Wet</span></button>
+      <button class="big diaper" data-diaper="dirty"><span>Dirty</span></button>
+      <button class="big diaper" data-diaper="both"><span>Both</span></button>
+    </section>
+
+    <div class="viewbar">
+      <div id="diaper-totals" class="totals inline"></div>
+      <div class="datenav">
+        <button class="nav-btn" data-step="-1" aria-label="Earlier">‹</button>
+        <button class="date-label" data-today></button>
+        <button class="nav-btn" data-step="1" aria-label="Later">›</button>
+      </div>
+    </div>
+
+    <ul id="diaper-list" class="list"></ul>
+    <button id="add-diaper" class="link add-past">+ Add an earlier diaper</button>
+  </main>
+
+  <dialog id="sheet" class="sheet">
+    <form method="dialog" id="sheet-form">
+      <h2 id="sheet-title"></h2>
+      <div id="sheet-body"></div>
+      <div class="sheet-actions">
+        <button type="button" id="sheet-delete" class="link danger">Delete</button>
+        <span class="spacer"></span>
+        <button type="button" id="sheet-cancel" class="link">Cancel</button>
+        <button type="submit" id="sheet-save" class="primary">Save</button>
+      </div>
+      <div id="sheet-meta" class="sheet-meta"></div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" hidden>
+    <span id="toast-text"></span>
+    <button id="toast-undo" class="link">Undo</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
